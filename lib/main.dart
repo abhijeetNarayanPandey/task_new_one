@@ -1,47 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:task_new_one/AudioPage.dart';
-import 'package:task_new_one/ChannelsPage.dart';
-import 'package:task_new_one/NotificationsPage.dart';
-import 'package:task_new_one/RewardsPage.dart';
+import 'package:provider/provider.dart';
+import 'package:task_new_one/models/AppData.dart';
+import 'pages/AudioPage.dart';
+import 'pages/ChannelsPage.dart';
+import 'pages/NotificationsPage.dart';
+import 'pages/RewardsPage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AppData(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  final List<String> categories = [
-    '#Career',
-    '#Projects', 
-    '#UX/UI', 
-    '#Branding', 
-    '#Data', 
-    '#Server', 
-    '#Flutter'
-  ]; // Sample list of categories
-  
-  final List<String> liveClasses = [
-    'Class 1', 
-    'Class 2', 
-    'Class 3', 
-    'Class 4', 
-    'Class 5'
-  ]; // Sample list of live classes
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainPage(categories: categories, liveClasses: liveClasses),
+      home: MainPage(),
     );
   }
 }
 
 class MainPage extends StatefulWidget {
-  final List<String> categories;
-  final List<String> liveClasses;
-
-  MainPage({required this.categories, required this.liveClasses});
-
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -49,16 +33,14 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  // List of pages
   final List<Widget> _pages = [
     CampusPage(),
     ChannelsPage(),
     AudioPage(),
     RewardsPage(),
-    NotificationsPage()
+    NotificationsPage(),
   ];
 
-  // Method to navigate between pages
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index; 
@@ -68,7 +50,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex], // Show the currently selected page
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -102,29 +84,13 @@ class _MainPageState extends State<MainPage> {
 }
 
 class CampusPage extends StatelessWidget {
-  final List<String> categories = [
-    '#Career', 
-    '#Projects', 
-    '#UX/UI', 
-    '#Branding', 
-    '#Data', 
-    '#Server', 
-    '#Flutter'
-  ]; // Sample list of categories
-
-  final List<String> liveClasses = [
-    'Class 1', 
-    'Class 2', 
-    'Class 3', 
-    'Class 4', 
-    'Class 5'
-  ]; // Sample list of live classes
-
   @override
   Widget build(BuildContext context) {
+    final appData = Provider.of<AppData>(context);
+    
     return Scaffold(
       appBar: AppBar(
-//        title: Text('Campus Layout'),
+        title: Text('Campus'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -135,7 +101,7 @@ class CampusPage extends StatelessWidget {
               Expanded(
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage('url_to_user_image'),
+                    backgroundImage: NetworkImage('url_to_user_image'), // Placeholder image URL
                   ),
                   title: Text('Campus'),
                 ),
@@ -157,10 +123,7 @@ class CampusPage extends StatelessWidget {
           // Bottom section
           Row(
             children: [
-              Text(
-                'Audio Room',
-                style: TextStyle(color: Colors.black),
-              ),
+              Text('Audio Room', style: TextStyle(color: Colors.black)),
               Spacer(),
               TextButton(
                 onPressed: () {
@@ -170,12 +133,12 @@ class CampusPage extends StatelessWidget {
               ),
             ],
           ),
-          // Horizontal list of categories buttons 
+          // Horizontal list of categories buttons
           Container(
             height: 100,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
+              itemCount: appData.categories.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   width: 100,
@@ -187,7 +150,7 @@ class CampusPage extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      categories[index],
+                      appData.categories[index],
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
@@ -200,7 +163,7 @@ class CampusPage extends StatelessWidget {
             height: 200,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: liveClasses.length,
+              itemCount: appData.liveClasses.length,
               itemBuilder: (context, index) {
                 return Container(
                   width: 247,
@@ -249,9 +212,3 @@ class CampusPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
