@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:task_new_one/AudioPage.dart';
+import 'package:task_new_one/ChannelsPage.dart';
+import 'package:task_new_one/NotificationsPage.dart';
+import 'package:task_new_one/RewardsPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -6,7 +10,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final List<String> categories = [
-    '#Career', 
+    '#Career',
     '#Projects', 
     '#UX/UI', 
     '#Branding', 
@@ -120,7 +124,7 @@ class CampusPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Campus Layout'),
+//        title: Text('Campus Layout'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -246,58 +250,8 @@ class CampusPage extends StatelessWidget {
   }
 }
 
-class ChannelsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Channels'),
-      ),
-      body: Center(
-        child: Text('Welcome to the Channels Page!'),
-      ),
-    );
-  }
-}
 
-class AudioPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Audio'),
-      ),
-      body: Center(
-        child: Text('Welcome to the Audio Page!'),
-      ),
-    );
-  }
-}
 
-class RewardsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Rewards'),
-      ),
-      body: Center(
-        child: Text('Welcome to the Rewards Page!'),
-      ),
-    );
-  }
-}
 
-class NotificationsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Notifications'),
-      ),
-      body: Center(
-        child: Text('Welcome to the Notifications Page!'),
-      ),
-    );
-  }
-}
+
+
